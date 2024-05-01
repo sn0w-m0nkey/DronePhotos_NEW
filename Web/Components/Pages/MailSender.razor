@@ -1,0 +1,63 @@
+@page "/mailsender"
+@rendermode InteractiveServer
+
+@using Web.Services
+@using System.ComponentModel.DataAnnotations
+
+@inject IMailService MailService
+
+<PageTitle>Email Sender</PageTitle>
+
+<div class="row">
+
+    <EditForm Model="Input" method="post" OnValidSubmit="SendEmail" FormName="SendEmail">
+        <h2>Send emails using Gmail</h2>
+        <ValidationSummary class="text-danger" role="alert"/>
+        <div>
+            <label for="email">Email</label>
+            <InputText @bind-Value="Input.Email" class="form-control" aria-required="true"></InputText>
+            <ValidationMessage For="() => Input.Email" class="text-danger"/>
+        </div>
+        <div>
+            <label for="subject">Subject</label>
+            <InputText @bind-Value="Input.Subject" class="form-control" aria-required="true"></InputText>
+            <ValidationMessage For="() => Input.Subject" class="text-danger"/>
+        </div>
+        <div>
+            <label for="subject">Text</label>
+            <InputTextArea @bind-Value="Input.Body" class="form-control" aria-required="true"></InputTextArea>
+            <ValidationMessage For="() => Input.Body" class="text-danger"/>
+        </div>
+
+        <div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        </div>
+    </EditForm>
+    
+</div>
+
+@code {
+    [SupplyParameterFromForm] private InputModel Input { get; set; } = new();
+    
+    private async void SendEmail(EditContext editContext)
+    {
+        // TODO: Add confirmation message or error
+        await MailService.SendEmail(Input.Email, Input.Subject, Input.Body);
+    }
+    
+    private sealed class InputModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; } = "";
+
+        [Required] 
+        [Display(Name = "Subject")] 
+        public string Subject { get; set; } = "";
+
+        [Required]
+        [Display(Name = "Email Body")]
+        public string Body { get; set; } = "";
+    }
+}
