@@ -12,6 +12,34 @@ namespace Web.Extensions;
 
 public static class ServiceProviderExtensions
 {
+    public static IServiceCollection RegisterWebComponents(this IServiceCollection services, IConfiguration configuration)
+    {
+        AddControllers(services, configuration);
+        ConfigureOptions(services, configuration);
+        RegisterServices(services);
+
+        return services;
+    }
+
+    public static IServiceCollection RegisterDataComponents(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("ApplicationDbContext")));
+        
+        services.AddDbContext<PhotosDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("PhotosDbContext")));
+
+        // services.AddDbContext<ApplicationDbContext>(
+        //     options =>
+        //         options.UseSqlServer(
+        //             configuration.GetConnectionString("ApplicationDbContext"),
+        //             x => x.MigrationsAssembly("Data")));
+                
+        services.AddDatabaseDeveloperPageExceptionFilter();
+        
+        return services;
+    }
+    
     public static IServiceCollection ConfigureAuthentication(this IServiceCollection services,
         IConfiguration configuration)
     {
@@ -32,31 +60,6 @@ public static class ServiceProviderExtensions
             .AddSignInManager()
             .AddDefaultTokenProviders();
 
-        return services;
-    }
-    
-    public static IServiceCollection RegisterWebComponents(this IServiceCollection services, IConfiguration configuration)
-    {
-        AddControllers(services, configuration);
-        ConfigureOptions(services, configuration);
-        RegisterServices(services);
-
-        return services;
-    }
-
-    public static IServiceCollection RegisterDataComponents(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")));
-
-        // services.AddDbContext<ApplicationDbContext>(
-        //     options =>
-        //         options.UseSqlServer(
-        //             configuration.GetConnectionString("ApplicationDbContext"),
-        //             x => x.MigrationsAssembly("Data")));
-                
-        services.AddDatabaseDeveloperPageExceptionFilter();
-        
         return services;
     }
 

@@ -4,6 +4,7 @@
 - Fix the DbContext
   - https://chrissainty.com/securing-your-blazor-apps-introduction-to-authentication-with-blazor/
   - https://stackoverflow.com/questions/19902756/asp-net-identity-dbcontext-confusion
+  - https://stackoverflow.com/questions/43767933/entity-framework-core-using-multiple-dbcontexts
 - Repository Pattern
   - https://codewithmukesh.com/blog/repository-pattern-in-aspnet-core/
   - https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-implementation-entity-framework-core
@@ -24,6 +25,7 @@
   - https://learn.microsoft.com/en-us/azure/storage/blobs/blob-upload-function-trigger?tabs=azure-portal
   - https://stackoverflow.com/questions/31531026/saving-images-in-azure-storage
   - https://blazor.syncfusion.com/documentation/file-upload/getting-started
+- Create App Service 
 - Try manual deployments to see if EF works
 - Replace the workflow
   - https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=applevel%2Caspnetcore
@@ -36,17 +38,18 @@
     - https://github.com/projectkudu/kudu/wiki/Custom-Deployment-Script https://docs.microsoft.com/bs-latn-ba/azure/azure-functions/run-functions-from-deployment-package
 - Azure
   - App Service
-  - App Service availability test
   - Application Insights
+  - App Service availability test
+  - App service logs - Turn on all error logging
   - SQL Server
-  - Deployment Slots
   - Connect App service to SQL Server
     - Just a connection string? 
     - System assigned identities for talking to DB?
     - Look into service connectors
     - Identity provider settings in App Service
+  - Deployment Slots
+    - Blue green deployment
   - Azure AD or OAuth
-  - App service logs - Turn on all error logging
   - Redis
   - Frontdoor
   - Bicep or ARM
@@ -75,7 +78,7 @@
   - Dapper
 - Deployment slots
   - Update workflow to switch between deployment slots
-
+  - 
 - MediatR
 
 ## Optional Things
